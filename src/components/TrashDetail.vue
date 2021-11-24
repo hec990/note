@@ -1,12 +1,17 @@
 <template>
-  <div>
-    TrashDetail
+  <div id="trash-detail">
+    <h1>{{msg}} : {{ $route.params.noteId }}</h1>
   </div>
 </template>
 
 <script lang="js">
 export default {
-  name: "TrashDetail"
+  name: "TrashDetail",
+  data () {
+    return {
+      msg: '回收站笔记详情页'
+    }
+  }
 };
 </script>
 
