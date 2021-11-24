@@ -31,7 +31,6 @@
       .form {
         width: 270px;
         border-left: 1px solid #ccc;
-
         h3 {
           padding: 10px 20px;
           font-weight: normal;
@@ -57,9 +56,15 @@
         }
 
         .login, .register {
-          padding: 10px 20px;
+          padding: 0 20px;
           border-top: 1px solid #eee;
-
+          height: 0;
+          overflow: hidden;
+          transition: height .4s;
+          border-top: 0;
+          &.show {
+            height: 193px;
+          }
           input {
             display: block;
             width: 100%;

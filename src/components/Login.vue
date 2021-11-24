@@ -6,17 +6,21 @@
           <div class="main"></div>
           <div class="form">
             <h3 @click="showRegister()">创建账户</h3>
-            <div v-show="isShowRegister" class="register">
+            <transition name="slide">
+            <div v-bind:class="{show: isShowRegister}" class="register">
               <input type="text" placeholder="用户名">
               <input type="password" placeholder="密码">
               <div class="button">创建账号</div>
             </div>
+            </transition>
             <h3 @click="showLogin()">登录</h3>
-            <div v-show="isShowLogin" class="login">
+            <transition name="slide">
+            <div v-bind:class="{show: isShowLogin}" class="login">
               <input type="text" placeholder="输入用户名">
               <input type="password" placeholder="密码">
               <div class="button"> 登录</div>
             </div>
+            </transition>
           </div>
         </div>
       </div>
