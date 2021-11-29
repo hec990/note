@@ -27,4 +27,8 @@ export default {
 html,body,#app {
   height: 100%;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>

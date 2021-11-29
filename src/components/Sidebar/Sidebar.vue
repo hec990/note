@@ -3,25 +3,29 @@
     <Avatar/>
     <div class="icons">
       <router-link to="/note/1" title="笔记">
-        <svg class="icon">
-          <use xlink:href="#icon-biji"></use>
-        </svg>
+          <svg class="icon">
+            <use xlink:href="#icon-biji"></use>
+          </svg>
+         <span>笔记本详情</span>
       </router-link>
       <router-link to="/notebooks" title="笔记本">
         <svg class="icon">
           <use xlink:href="#icon-bijiben"></use>
         </svg>
+        <span>笔记本列表</span>
       </router-link>
       <router-link to="/trash/2" title="回收站">
         <svg class="icon">
           <use xlink:href="#icon-huishouzhan"></use>
         </svg>
+        <span>&ensp;回收站&ensp;&ensp;&ensp;</span>
       </router-link>
     </div>
-    <div class="logout">
-      <svg class="icon" @click="logout">
+    <div class="logout" @click="logout">
+      <svg class="icon">
         <use xlink:href="#icon-tuichu"></use>
       </svg>
+      <span>退出登录</span>
     </div>
   </div>
 </template>
@@ -53,17 +57,23 @@ export default {
 }
 #sidebar {
   position: relative;
-  width: 56px;
+  width: 180px;
   text-align: center;
-  background-color: #2c333c;
+  background-color: #222530;
   .icons {
     margin-top: 15px;
     a {
-      padding: 6px 0;
+      padding: 12px 0;
       display: block;
+      span {
+        color:#C0D2EB;
+        font-size: 12px;
+        margin-left: 14px;
+      }
     }
     .router-link-active {
-      background-color: #5e6266;
+      border-radius: 12px;
+      background-color: #414b5f;
     }
   }
   .logout {
@@ -72,6 +82,11 @@ export default {
     width: 100%;
     text-align: center;
     cursor: pointer;
+    span {
+      color:#C0D2EB;
+      font-size: 12px;
+      margin-left: 14px;
+    }
   }
 }
 </style>
