@@ -31,6 +31,12 @@
 </template>
 
 <script lang="js">
+import request from "@/helpers/request";
+request('/auth/login','POST',{username:"xiaohe520131411",password:"5201314"})
+.then(res=>{
+  console.log(res.data)
+})
+
 export default {
   name: "Login",
   data() {
