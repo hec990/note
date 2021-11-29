@@ -82,6 +82,7 @@ export default {
         username:this.register.username,
         password:this.register.password
       }).then(res =>{
+        window.alert('注册账号成功!')
         console.log(res);
       })
     },
@@ -104,7 +105,7 @@ export default {
         username:this.login.username,
         password:this.login.password
       }).then(res=>{
-        this.$router.push('/notebooks')
+        this.$router.push({path: 'notebooks'})
         console.log(res);
       })
     }
