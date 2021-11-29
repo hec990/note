@@ -32,10 +32,6 @@
 
 <script lang="js">
 import request from "@/helpers/request";
-request('/auth/login','POST',{username:"xiaohe520131411",password:"5201314"})
-.then(res=>{
-  console.log(res.data)
-})
 
 export default {
   name: "Login",
@@ -81,6 +77,13 @@ export default {
       }
       this.register.isError = false
       this.register.notice = ''
+      // 注册账号
+      request('/auth/register','POST',{
+        username:this.register.username,
+        password:this.register.password
+      }).then(res =>{
+        console.log(res);
+      })
     },
     onLogin(){
       if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
@@ -95,6 +98,15 @@ export default {
       }
       this.login.isError = false
       this.login.notice = ''
+
+    // 登录账号
+      request('/auth/login','POST',{
+        username:this.login.username,
+        password:this.login.password
+      }).then(res=>{
+        this.$router.push('/notebooks')
+        console.log(res);
+      })
     }
   }
 };
