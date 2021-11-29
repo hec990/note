@@ -28,15 +28,15 @@
 
 <script lang="js">
 import Avatar from "@/components/Sidebar/Avatar";
-import request from "@/helpers/request";
+import Auth from '@/apis/auth'
 
 export default {
   name: "Sidebar",
   methods:{
     logout(){
-      request('/auth/logout')
-      .then(()=>{
+      Auth.logout().then(res =>{
         this.$router.push({path:'/login'})
+        console.log(res)
       })
     }
   },

@@ -31,7 +31,7 @@
 </template>
 
 <script lang="js">
-import request from "@/helpers/request";
+import Auth from '@/apis/auth'
 
 export default {
   name: "Login",
@@ -77,8 +77,8 @@ export default {
       }
       this.register.isError = false
       this.register.notice = ''
-      // 注册账号
-      request('/auth/register','POST',{
+
+      Auth.register({
         username:this.register.username,
         password:this.register.password
       }).then(res =>{
@@ -100,8 +100,7 @@ export default {
       this.login.isError = false
       this.login.notice = ''
 
-    // 登录账号
-      request('/auth/login','POST',{
+      Auth.login({
         username:this.login.username,
         password:this.login.password
       }).then(res=>{
