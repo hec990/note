@@ -19,7 +19,7 @@
       </router-link>
     </div>
     <div class="logout">
-      <svg class="icon">
+      <svg class="icon" @click="logout">
         <use xlink:href="#icon-tuichu"></use>
       </svg>
     </div>
@@ -28,8 +28,18 @@
 
 <script lang="js">
 import Avatar from "@/components/Sidebar/Avatar";
+import request from "@/helpers/request";
+
 export default {
   name: "Sidebar",
+  methods:{
+    logout(){
+      request('/auth/logout')
+      .then(()=>{
+        this.$router.push({path:'/login'})
+      })
+    }
+  },
   components: {Avatar}
 }
 </script>

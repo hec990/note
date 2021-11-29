@@ -1,8 +1,8 @@
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.baseURL = 'http://note-server.hunger-valley.com'
-// 跨域请求数据，携带cookie（用于知道登录状态）
-axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
+axios.defaults.withCredentials = true; //允许跨域携带cookie信息
+
 
 export default function request(url, type = 'GET', data = {}) {
     return new Promise((resolve, reject) => {
