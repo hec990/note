@@ -109,6 +109,9 @@ export default {
         Bus.$emit('userInfo',{username:this.login.username})
         this.$router.push({path: 'notebooks'})
         console.log(res);
+      }).catch(res=>{
+        this.login.isError = true;
+        this.login.notice = res.msg;
       })
     }
   }

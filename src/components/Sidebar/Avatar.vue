@@ -5,7 +5,6 @@
 </template>
 
 <script lang="js">
-import Auth from '@/apis/auth'
 import Bus from '@/helpers/component-Bus'
 
 export default {
@@ -16,13 +15,13 @@ export default {
     }
   },
   created() {
+    // 展示登录成功后最新的username
     Bus.$on('userInfo',user=>{
       this.username = user.username;
     })
-    Auth.getInfo().then(res=>{
-      if(res.isLogin){
-        this.username = res.data.username
-      }
+    // 注销后显示的名字
+    Bus.$on('logout_userInfo',user=>{
+      this.username = user.logout_userInfo;
     })
   },
   computed:{

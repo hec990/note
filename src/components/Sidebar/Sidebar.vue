@@ -33,6 +33,7 @@
 <script lang="js">
 import Avatar from "@/components/Sidebar/Avatar";
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/component-Bus'
 
 export default {
   name: "Sidebar",
@@ -42,6 +43,8 @@ export default {
         this.$router.push({path:'/login'})
         console.log(res)
       })
+      //  注销登录后的名字显示
+      Bus.$emit("logout_userInfo",{logout_userInfo:"未"})
     }
   },
   components: {Avatar}
