@@ -32,6 +32,7 @@
 
 <script lang="js">
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/component-Bus'
 
 export default {
   name: "Login",
@@ -82,8 +83,9 @@ export default {
         username:this.register.username,
         password:this.register.password
       }).then(res =>{
-        window.alert('注册账号成功!')
         console.log(res);
+        Bus.$emit('userInfo',{username:this.register.username})
+        this.$router.push({path: 'notebooks'})
       })
     },
     onLogin(){
@@ -104,6 +106,7 @@ export default {
         username:this.login.username,
         password:this.login.password
       }).then(res=>{
+        Bus.$emit('userInfo',{username:this.login.username})
         this.$router.push({path: 'notebooks'})
         console.log(res);
       })
