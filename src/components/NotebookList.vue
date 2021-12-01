@@ -71,7 +71,9 @@ export default {
       if (isConfirm) {
         NotebookList.deleteNotebook(notebook.id)
             .then(() => {
+              // 更新视图第一种方式
               // NotebookList.getAll().then(res=>{this.notebooks = res.data;})
+              // 更新视图第二种方式
               this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
             })
       }

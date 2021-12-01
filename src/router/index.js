@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Login from "@/components/Login";
 import NotebookList from "@/components/NotebookList";
 import NoteDetail from "@/components/NoteDetail";
@@ -11,12 +10,7 @@ Vue.use(VueRouter)
 const routes = [
     {
       path:'/',
-      component: Login,
-    },
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
+      redirect: '/login'
     },
     {  // 登录页面
         path: '/login',
