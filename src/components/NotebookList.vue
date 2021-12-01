@@ -20,7 +20,7 @@
               </svg>
               <span class="noteTitle">{{ notebook.title }}</span>
               <span class="number">{{ notebook.noteCounts }}</span>
-              <span class="action">编辑</span>
+              <span class="action" @click.prevent="onEdit(notebook)">编辑</span>
               <span class="action" @click.prevent="onDelete(notebook)">删除</span>
               <span class="date">{{ notebook.updatedAt }}</span>
             </div>
@@ -75,6 +75,12 @@ export default {
               this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
             })
       }
+    },
+    onEdit(notebook){
+      let newTitle = window.prompt('修改笔记本标题',notebook.title)
+      NotebookList.updateNotebook(notebook.id,{title:newTitle}).then(() =>{
+        notebook.title = newTitle;
+      })
     }
   }
 };
