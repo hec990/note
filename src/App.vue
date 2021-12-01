@@ -26,6 +26,7 @@ export default {
 }
 html,body,#app {
   height: 100%;
+  background-color: #eeedef;
 }
 a {
   color: inherit;

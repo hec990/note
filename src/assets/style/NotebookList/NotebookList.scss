@@ -1,0 +1,66 @@
+.icon {
+  width: 14px;
+  height: 14px;
+  vertical-align:middle;
+}
+#notebook-list {
+  flex: 1;
+  header {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    .btn {
+      width: 92px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      margin-left: 10px;
+      background-color: white;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        margin-left: 5px;
+      }
+    }
+  }
+  main {
+    padding: 30px 40px;
+    .layout {
+      max-width: 966px;
+      margin: 0 auto;
+      h3 {
+        font-size: 12px;
+        color: #000;
+      }
+      .book-list {
+        margin-top: 10px;
+        font-size: 14px;
+        background-color: #fff;
+        border-radius: 4px;
+        .notebook {
+          display: block;
+          cursor: pointer;
+          color: #666;
+          .notebookList {
+            border-bottom: 1px solid #ebebeb;
+            padding: 12px 14px;
+            .noteTitle {
+              margin-left: 8px;
+            }
+            .number {
+              margin-left: 5px;
+            }
+          }
+          &:hover {
+            background-color: #f7fafd;
+          }
+        }
+      }
+      .date , .action  {
+        float: right;
+        margin-left: 12px;
+      }
+    }
+  }
+}
