@@ -10,18 +10,19 @@
     </header>
     <main>
       <div class="layout">
-        <h3>笔记本列表({{notebooks.length}})</h3>
+        <h3>笔记本列表({{ notebooks.length }})</h3>
         <div class="book-list">
-          <router-link class="notebook" v-for="(notebook,index) in notebooks" :key="index" :to="`/note?notebookId=${notebook.id}`">
+          <router-link class="notebook" v-for="(notebook,index) in notebooks" :key="index"
+                       :to="`/note?notebookId=${notebook.id}`">
             <div class="notebookList">
-                <svg class="icon">
-                  <use xlink:href="#icon-bijiben1"></use>
-                </svg>
+              <svg class="icon">
+                <use xlink:href="#icon-bijiben1"></use>
+              </svg>
               <span class="noteTitle">{{ notebook.title }}</span>
-              <span class="number">{{notebook.noteCounts}}</span>
+              <span class="number">{{ notebook.noteCounts }}</span>
               <span class="action">编辑</span>
-              <span class="action" >删除</span>
-              <span class="date">{{notebook.updatedAt}}</span>
+              <span class="action" @click.prevent="onDelete(notebook)">删除</span>
+              <span class="date">{{ notebook.updatedAt }}</span>
             </div>
           </router-link>
         </div>
@@ -32,39 +33,49 @@
 
 <script lang="js">
 import Auth from '@/apis/auth'
-import request from '@/helpers/request'
 import NotebookList from "@/apis/notebook";
 
+// 用于测试API
 window.NotebookList = NotebookList;
 
 export default {
   name: "NotebookList",
-  data(){
+  data() {
     return {
-      notebooks:[]
+      notebooks: []
     }
   },
   created() {
     // 未登录状态访问此页强制跳转到登录页
-    Auth.getInfo().then(res=>{
-      if(res.isLogin === false){
-        this.$router.push({path:'/login'})
+    Auth.getInfo().then(res => {
+      if (res.isLogin === false) {
+        this.$router.push({path: '/login'})
       }
     })
-    request('/notebooks').then(res=>{
+    // 获取笔记本列表
+    NotebookList.getAll().then(res => {
       console.log(res)
       this.notebooks = res.data;
     })
   },
-  methods:{
+  methods: {
     // 创建笔记
-    createNote(){
+    createNote() {
       let title = window.prompt("请您输入笔记名")
-      request('/notebooks','POST',{title}).then(res=>{
-        console.log(res)
+      NotebookList.addNotebook({title}).then(res => {
         this.notebooks.unshift(res.data)
       })
     },
+    onDelete(notebook) {
+      let isConfirm = window.confirm('你确定要删除吗？')
+      if (isConfirm) {
+        NotebookList.deleteNotebook(notebook.id)
+            .then(() => {
+              // NotebookList.getAll().then(res=>{this.notebooks = res.data;})
+              this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
+            })
+      }
+    }
   }
 };
 </script>
