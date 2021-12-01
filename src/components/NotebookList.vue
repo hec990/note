@@ -33,6 +33,9 @@
 <script lang="js">
 import Auth from '@/apis/auth'
 import request from '@/helpers/request'
+import NotebookList from "@/apis/notebook";
+
+window.NotebookList = NotebookList;
 
 export default {
   name: "NotebookList",
