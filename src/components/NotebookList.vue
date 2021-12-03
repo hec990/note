@@ -12,7 +12,7 @@
       <div class="layout">
         <h3>笔记本列表({{ notebooks.length }})</h3>
         <div class="book-list">
-          <router-link class="notebook" v-for="(notebook,index) in notebooks" :key="index"
+          <router-link class="notebook" v-for="(notebook,index) in this.notebooks" :key="index"
                        :to="`/note?notebookId=${notebook.id}`">
             <div class="notebookList">
               <svg class="icon">
@@ -75,6 +75,9 @@ export default {
               // NotebookList.getAll().then(res=>{this.notebooks = res.data;})
               // 更新视图第二种方式
               this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
+            })
+            .catch(err =>{
+              window.alert(err.msg)
             })
       }
     },
