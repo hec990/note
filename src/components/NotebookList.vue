@@ -59,32 +59,57 @@ export default {
     })
   },
   methods: {
-    // 创建笔记
+
     createNote() {
-      let title = window.prompt("请您输入笔记名")
-      NotebookList.addNotebook({title}).then(res => {
+      let title = window.prompt('请输入笔记本名称')
+      NotebookList.addNotebook({ title }).then(res=>{
         this.notebooks.unshift(res.data)
       })
+      // TODO
+      // 目前使用Element的组件，点击后会闪退
+
+
+      // this.$prompt('输入新笔记本标题', '创建笔记本', {
+      //   confirmButtonText: '确定',
+      //   cancelButtonText: '取消',
+      //   inputPattern: /^.{1,30}$/,
+      //   inputErrorMessage: '标题不能为空，且不超过30个字符'
+      // }).then(({ value }) => {
+      //   return NotebookList.addNotebook({ title: value })
+      // }).then(res => {
+      //   this.notebooks.unshift(res.data)
+      //   this.$message.success(res.msg)
+      // })
     },
     onDelete(notebook) {
-      let isConfirm = window.confirm('你确定要删除吗？')
-      if (isConfirm) {
-        NotebookList.deleteNotebook(notebook.id)
+      this.$confirm('确认要删除笔记本吗？', '删除笔记本', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+       NotebookList.deleteNotebook(notebook.id)
             .then(() => {
-              // 更新视图第一种方式
-              // NotebookList.getAll().then(res=>{this.notebooks = res.data;})
-              // 更新视图第二种方式
               this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
             })
             .catch(err =>{
-              window.alert(err.msg)
+              this.$notify.error(err.msg)
             })
-      }
+      })
     },
     onEdit(notebook){
-      let newTitle = window.prompt('修改笔记本标题',notebook.title)
-      NotebookList.updateNotebook(notebook.id,{title:newTitle}).then(() =>{
-        notebook.title = newTitle;
+      let title = ''
+      this.$prompt('输入新笔记本标题', '修改笔记本', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^.{1,30}$/,
+        inputValue: notebook.title,
+        inputErrorMessage: '标题不能为空，且不超过30个字符'
+      }).then(({ value }) => {
+        title = value
+        return NotebookList.updateNotebook(notebook.id, { title })
+      }).then(res => {
+        notebook.title = title
+        this.$notify.success(res.msg)
       })
     }
   }
