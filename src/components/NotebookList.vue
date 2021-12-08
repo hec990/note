@@ -59,16 +59,14 @@ export default {
     })
   },
   methods: {
-
     createNote() {
       let title = window.prompt('请输入笔记本名称')
       NotebookList.addNotebook({ title }).then(res=>{
         this.notebooks.unshift(res.data)
       })
+
       // TODO
       // 目前使用Element的组件，点击后会闪退
-
-
       // this.$prompt('输入新笔记本标题', '创建笔记本', {
       //   confirmButtonText: '确定',
       //   cancelButtonText: '取消',
@@ -108,6 +106,7 @@ export default {
         title = value
         return NotebookList.updateNotebook(notebook.id, { title })
       }).then(res => {
+        // 新标题赋值旧标题
         notebook.title = title
         this.$notify.success(res.msg)
       })
