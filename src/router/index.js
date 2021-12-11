@@ -21,11 +21,11 @@ const routes = [
         component: NotebookList,
     },
     {  // 笔记本详细页面
-        path:'/note/:noteId',
+        path:'/note',
         component: NoteDetail,
     },
     {  // 回收站详情页面
-        path:'/trash/:noteId',
+        path:'/trash',
         component: TrashDetail
     }
 

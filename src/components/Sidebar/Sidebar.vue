@@ -2,7 +2,7 @@
   <div id="sidebar">
     <Avatar/>
     <div class="icons">
-      <router-link to="/note/1" title="笔记">
+      <router-link to="/note" title="笔记">
           <svg class="icon">
             <use xlink:href="#icon-biji"></use>
           </svg>
@@ -14,7 +14,7 @@
         </svg>
         <span>笔记本列表</span>
       </router-link>
-      <router-link to="/trash/2" title="回收站">
+      <router-link to="/trash" title="回收站">
         <svg class="icon">
           <use xlink:href="#icon-huishouzhan"></use>
         </svg>
@@ -41,7 +41,7 @@ export default {
     logout(){
       Auth.logout().then(res =>{
         this.$router.push({path:'/login'})
-        console.log(res)
+        this.$message.success(res.msg)
       })
       //  注销登录后的名字显示
       Bus.$emit("logout_userInfo",{logout_userInfo:"未"})
