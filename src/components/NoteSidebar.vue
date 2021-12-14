@@ -62,7 +62,15 @@ export default {
   },
   methods: {
     onAddNote() {
-      console.log('添加笔记')
+      this.$prompt('请输入笔记名称', '创建笔记', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^.{1,30}$/,
+        inputErrorMessage: '标题不能为空，且不超过30个字符'
+      }).then(({ value }) => {
+        Notes.addNote({notebookId:this.curBook.id},{title:value})
+            .then(res => this.notes.unshift(res.data))
+      })
     },
     handleCommand(notebookId) {
       if (notebookId === 'trash') {
@@ -150,21 +158,19 @@ export default {
 
   .notes {
     li {
-
       &:nth-child(odd) {
         background-color: #f2f2f2;
       }
-
       a {
         display: flex;
         padding: 3px 0;
         font-size: 12px;
         border: 2px solid transparent;
       }
-
       .router-link-exact-active {
         border: 2px solid #81c0f3;
         border-radius: 3px;
+        height: 100%;
       }
 
       span {

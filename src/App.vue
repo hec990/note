@@ -32,4 +32,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+li {
+  list-style-type:none;
+}
 </style>
