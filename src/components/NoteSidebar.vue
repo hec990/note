@@ -6,7 +6,7 @@
         {{ curBook.title }}
         <svg class="arrow-icon">
             <use xlink:href="#icon-bottom"></use>
-          </svg>
+        </svg>
       </span>
       <!--  每一项 -->
       <el-dropdown-menu slot="dropdown">
@@ -32,36 +32,49 @@
 </template>
 
 <script lang="js">
+import Notes from '@/apis/notes'
+import NotebookList from "@/apis/notebook";
+
 export default {
   name: "NoteSidebar",
   data() {
     return {
+      // 所有笔记本
       notebooks: [],
-      notes: [
-        {
-          id:11,
-          title:'第一个笔记',
-          updatedAtFriendly: '2021年12月14日'
-        },
-        {
-          id:12,
-          title:'第二个笔记',
-          updatedAtFriendly: '2021年12月13日'
-        },
-      ],
-      curBook: {
-        title: "前端学习笔记"
-      }
+      // 所有笔记
+      notes: [],
+      curBook: {}
     }
+  },
+  created() {
+    // 获取笔记本列表
+    NotebookList.getAll()
+        .then(res => {
+          this.notebooks = res.data
+          // 1. 笔记本列表点击过来 ==> notebook.id == this.$route.query.notebookId
+          // 2. 直接切换到笔记本详情显示的笔记本 ==> this.notebooks[0]
+          this.curBook = this.notebooks.find(notebook => notebook.id === this.$route.query.notebookId)
+              || this.notebooks[0] || {}
+          return Notes.getAll({notebookId: this.curBook.id})
+        }).then(res => {
+      this.notes = res.data;
+    })
   },
   methods: {
     onAddNote() {
       console.log('添加笔记')
     },
-    handleCommand() {
-      console.log('被点击了')
+    handleCommand(notebookId) {
+      if (notebookId === 'trash') {
+        return this.$router.push({path: '/trash'})
+      }
+      // 获取笔记本下所有笔记
+      Notes.getAll({notebookId}).then(res => {
+        this.notes = res.data;
+      })
+      this.curBook = this.notebooks.find(notebook => notebook.id === notebookId)
     }
-  }
+  },
 }
 </script>
 

@@ -8,7 +8,7 @@ const URL = {
 }
 
 export default {
-    // 获取所有笔记本
+    // 获取笔记本下的所有笔记
     getAll({notebookId}) {
         return new Promise((resolve, reject) => {
             request(URL.GET.replace(':notebookId', notebookId))
