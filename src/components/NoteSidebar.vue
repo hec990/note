@@ -37,7 +37,18 @@ export default {
   data() {
     return {
       notebooks: [],
-      notes: [],
+      notes: [
+        {
+          id:11,
+          title:'第一个笔记',
+          updatedAtFriendly: '2021年12月14日'
+        },
+        {
+          id:12,
+          title:'第二个笔记',
+          updatedAtFriendly: '2021年12月13日'
+        },
+      ],
       curBook: {
         title: "前端学习笔记"
       }

@@ -35,6 +35,10 @@
 <script lang="js">
 import Auth from "@/apis/auth";
 import NoteSidebar from "@/components/NoteSidebar";
+import Notes from '@/apis/notes'
+
+window.Notes = Notes;
+
 
 export default {
   name: "NoteDetail",
