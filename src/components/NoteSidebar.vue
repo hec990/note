@@ -4,7 +4,7 @@
     <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom">
       <span class="el-dropdown-link">
         {{ curBook.title }}
-        <svg class="arrow-icon">
+        <svg class="icon">
             <use xlink:href="#icon-bottom"></use>
         </svg>
       </span>
@@ -87,16 +87,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.arrow-icon {
-  width: 1em;
-  height: 1em;
-}
-
 .icon {
   width: 1em;
   height: 1em;
 }
-
 .note-sidebar {
   position: relative;
   width: 290px;
