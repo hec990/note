@@ -23,7 +23,7 @@
     <ul class="notes">
       <li v-for="(note,index) in notes" :key="index">
         <router-link :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
-          <span class="date">{{ note.updatedAtFriendly }}</span>
+          <span class="date">3天前</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
       </li>
@@ -58,6 +58,7 @@ export default {
           return Notes.getAll({notebookId: this.curBook.id})
         }).then(res => {
       this.notes = res.data;
+      this.$emit('update:notes',this.notes)
     })
   },
   methods: {
@@ -79,10 +80,12 @@ export default {
       // 获取笔记本下所有笔记
       Notes.getAll({notebookId}).then(res => {
         this.notes = res.data;
+        this.$emit('update:notes',this.notes)
       })
       this.curBook = this.notebooks.find(notebook => notebook.id === notebookId)
     }
   },
+
 }
 </script>
 

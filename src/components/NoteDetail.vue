@@ -1,13 +1,13 @@
 <template>
   <div id="note" class="detail">
-    <note-sidebar/>
+    <note-sidebar @update:notes="val => notes = val" />
     <div class="note-detail">
-      <div class="note-empty" v-show="!curNote.id">请选择笔记</div>
+      <div class="note-empty" v-show="!curNote.id">请选择一个笔记</div>
       <div class="note-detail-ct" v-show="curNote.id">
         <div class="note-bar">
-          <span> 创建日期: {{ curNote.createdAtFriendly }}</span>
-          <span> 更新日期: {{ curNote.updatedAtFriendly }}</span>
-          <span> {{ statusText }}</span>
+          <span> 创建日期: {{ curNote.createdAt }}</span>
+          <span> 更新日期: {{ curNote.updatedAt }}</span>
+          <span> {{ curNote.statusText }}</span>
           <span>
             <svg class="icon">
                 <use xlink:href="#icon-xianshi"></use>
@@ -19,13 +19,13 @@
         </div>
         <div class="note-title">
           <input type="text"
-                 :value="curNote.title"
+                 v-model="curNote.title"
                  placeholder="输入标题" />
         </div>
         <div class="editor">
           <textarea
               v-show="true"
-              :value="curNote.content"
+              v-model="curNote.content"
               placeholder="输入内容, 支持 markdown 语法">
           </textarea>
           <div class="preview markdown-body" v-show="false"></div>
@@ -38,10 +38,6 @@
 <script lang="js">
 import Auth from "@/apis/auth";
 import NoteSidebar from "@/components/NoteSidebar";
-import Notes from '@/apis/notes'
-
-window.Notes = Notes;
-
 
 export default {
   name: "NoteDetail",
@@ -49,23 +45,21 @@ export default {
   data () {
     return {
       msg: '笔记详情页',
-      curNote:{
-        title:'我的笔记',
-        content:'我的笔记内容',
-        id:1,
-        createdAtFriendly:"2021年12月11日23:02:45",
-        updatedAtFriendly:"2021年12月11日23:12:15",
-        statusText:"已保存"
-      },
+      curNote:{},
+      notes:[]
     }
   },
   created() {
-    console.log(this.$route)
     Auth.getInfo().then(res=>{
       if(res.isLogin === false){
         this.$router.push({path:'/login'})
       }
     })
+  },
+  // 组件内路由发生变化时触发
+  beforeRouteUpdate(to,from,next){
+    this.curNote = this.notes.find(note => note.id == to.query.noteId)
+    next()
   }
 };
 </script>
