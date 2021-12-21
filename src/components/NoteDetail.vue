@@ -9,7 +9,8 @@
           <span> 更新日期: {{ curNote.updatedAt }}</span>
           <span> {{ statusText }}</span>
           <span>
-            <svg class="icon" @click="isShowPreview = !isShowPreview">
+            <span>当前显示：{{ text }}</span>
+            <svg class="icon" @click="isShowView">
                 <use xlink:href="#icon-xianshi"></use>
             </svg>
           <svg class="icon" @click="removeNote">
@@ -60,7 +61,8 @@ export default {
       curNote: {},
       statusText:'笔记未改动',
       notes: [],
-      isShowPreview:false
+      isShowPreview:false,
+      text: 'MarkDown',
     }
   },
   created() {
@@ -89,6 +91,10 @@ export default {
         this.$message.error(data.msg)
         this.notes = this.notes.splice(this.notes.indexOf(this.curNote),1)
       })
+    },
+    isShowView(){
+      this.isShowPreview = !this.isShowPreview;
+      this.isShowPreview ? this.text = 'HTML' : this.text = 'MarkDown'
     }
   },
   computed:{
@@ -134,7 +140,7 @@ export default {
       .note-bar {
         padding: 4px 20px;
         border-bottom: 1px solid #eee;
-
+        cursor: pointer;
         &:after {
           content: '';
           display: block;
@@ -147,10 +153,15 @@ export default {
           margin-right: 4px;
 
           &:last-child {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
             float: right;
-
-            svg:first-child {
-              margin-right: 20px;
+            span {
+              margin-right: 10px;
+            }
+            svg:last-child {
+              margin-left: 6px;
             }
           }
         }
