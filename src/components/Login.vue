@@ -108,7 +108,9 @@ export default {
       }).then(res=>{
         Bus.$emit('userInfo',{username:this.login.username})
         this.$router.push({path: 'notebooks'})
-        this.$message.success(res.msg)
+        this.$notify.success({
+          title:res.msg
+        });
       }).catch(res=>{
         this.login.isError = true;
         this.login.notice = res.msg;

@@ -41,7 +41,9 @@ export default {
     logout(){
       Auth.logout().then(res =>{
         this.$router.push({path:'/login'})
-        this.$message.success(res.msg)
+        this.$notify.success({
+          title:res.msg
+        });
       })
       //  注销登录后的名字显示
       Bus.$emit("logout_userInfo",{logout_userInfo:"未"})
