@@ -113,6 +113,10 @@ export default {
     box-shadow: 0 0 2px 0 #ccc;
     border: none;
     z-index: 1;
+    cursor: pointer;
+    &:hover{
+      color: orange;
+    }
   }
 
   .notebook-title {
