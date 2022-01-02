@@ -32,18 +32,13 @@
 </template>
 
 <script lang="js">
-import Auth from '@/apis/auth'
-import NotebookList from "@/apis/notebook";
-
-// 用于测试API
-window.NotebookList = NotebookList;
+import Auth from '../apis/auth'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "NotebookList",
   data() {
-    return {
-      notebooks: []
-    }
+    return {}
   },
   created() {
     // 未登录状态访问此页强制跳转到登录页
@@ -53,17 +48,16 @@ export default {
       }
     })
     // 获取笔记本列表
-    NotebookList.getAll().then(res => {
-      console.log(res)
-      this.notebooks = res.data;
-    })
+    this.getNotebooks()
+  },
+  computed: {
+    ...mapGetters(['notebooks'])
   },
   methods: {
+    ...mapActions(['deleteNotebook', 'updateNotebook', 'addNotebook', 'getNotebooks']),
     createNote() {
       let title = window.prompt('请输入笔记本名称')
-      NotebookList.addNotebook({ title }).then(res=>{
-        this.notebooks.unshift(res.data)
-      })
+      this.addNotebook({title})
 
       // TODO
       // 目前使用Element的组件，点击后会闪退
@@ -85,16 +79,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-       NotebookList.deleteNotebook(notebook.id)
-            .then(() => {
-              this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
-            })
-            .catch(err =>{
-              this.$notify.error(err.msg)
-            })
+        this.deleteNotebook({notebookId: notebook.id})
       })
     },
-    onEdit(notebook){
+    onEdit(notebook) {
       let title = ''
       this.$prompt('输入新笔记本标题', '修改笔记本', {
         confirmButtonText: '确定',
@@ -102,13 +90,9 @@ export default {
         inputPattern: /^.{1,30}$/,
         inputValue: notebook.title,
         inputErrorMessage: '标题不能为空，且不超过30个字符'
-      }).then(({ value }) => {
-        title = value
-        return NotebookList.updateNotebook(notebook.id, { title })
-      }).then(res => {
-        // 新标题赋值旧标题
-        notebook.title = title
-        this.$notify.success(res.msg)
+      }).then(({value}) => {
+        title = value;
+        this.updateNotebook({notebookId: notebook.id, title})
       })
     }
   }
