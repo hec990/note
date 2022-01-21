@@ -59,20 +59,29 @@ export default {
           return Notes.getAll({notebookId: this.curBook.id})
         }).then(res => {
       this.notes = res.data;
-      this.$emit('update:notes',this.notes)
+      this.$emit('update:notes', this.notes)
       Bus.$emit('update:notes', this.notes)
     })
   },
   methods: {
     onAddNote() {
-      this.$prompt('请输入笔记名称', '创建笔记', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputPattern: /^.{1,30}$/,
-        inputErrorMessage: '标题不能为空，且不超过30个字符'
-      }).then(({ value }) => {
-        Notes.addNote({notebookId:this.curBook.id},{title:value})
-            .then(res => this.notes.unshift(res.data))
+      NotebookList.getAll().then(res => {
+        if (res.data.length === 0) {
+          this.$message.warning({
+            message: '请创建至少一个笔记本后再试哦!',
+            duration: 2000
+          })
+        } else {
+          this.$prompt('请输入笔记名称', '创建笔记', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputPattern: /^.{1,30}$/,
+            inputErrorMessage: '标题不能为空，且不超过30个字符'
+          }).then(({value}) => {
+            Notes.addNote({notebookId: this.curBook.id}, {title: value})
+                .then(res => this.notes.unshift(res.data))
+          })
+        }
       })
     },
     handleCommand(notebookId) {
@@ -82,7 +91,7 @@ export default {
       // 获取笔记本下所有笔记
       Notes.getAll({notebookId}).then(res => {
         this.notes = res.data;
-        this.$emit('update:notes',this.notes)
+        this.$emit('update:notes', this.notes)
       })
       this.curBook = this.notebooks.find(notebook => notebook.id === notebookId)
     }
@@ -96,6 +105,7 @@ export default {
   width: 1em;
   height: 1em;
 }
+
 .note-sidebar {
   position: relative;
   width: 290px;
@@ -114,7 +124,8 @@ export default {
     border: none;
     z-index: 1;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       color: orange;
     }
   }
@@ -164,12 +175,14 @@ export default {
       &:nth-child(odd) {
         background-color: #f2f2f2;
       }
+
       a {
         display: flex;
         padding: 3px 0;
         font-size: 12px;
         border: 2px solid transparent;
       }
+
       .router-link-exact-active {
         border: 2px solid #81c0f3;
         border-radius: 3px;
