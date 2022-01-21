@@ -17,8 +17,8 @@
             <h3 @click="showLogin()">登录</h3>
             <transition name="slide">
               <div v-bind:class="{show: isShowLogin}" class="login">
-                <input type="text" v-model="login.username" @keyup.enter="onLogin" placeholder="输入用户名" >
-                <input type="password" v-model="login.password" @keyup.enter="onLogin" placeholder="密码" >
+                <input type="text" v-model="login.username" @keyup.enter="onLogin" placeholder="输入用户名">
+                <input type="password" v-model="login.password" @keyup.enter="onLogin" placeholder="密码">
                 <p v-bind:class="{error: login.isError}"> {{ login.notice }}</p>
                 <div class="button" @click="onLogin"> 登录</div>
               </div>
@@ -80,15 +80,17 @@ export default {
       this.register.notice = ''
 
       Auth.register({
-        username:this.register.username,
-        password:this.register.password
-      }).then(res =>{
-        console.log(res);
-        Bus.$emit('userInfo',{username:this.register.username})
+        username: this.register.username,
+        password: this.register.password
+      }).then(() => {
+        Bus.$emit('userInfo', {username: this.register.username})
         this.$router.push({path: 'notebooks'})
+      }).catch(err => {
+        this.register.isError = true;
+        this.register.notice = err.msg;
       })
     },
-    onLogin(){
+    onLogin() {
       if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
         this.login.isError = true
         this.login.notice = '用户名3~15个字符，仅限于字母数字下划线中文'
@@ -103,17 +105,17 @@ export default {
       this.login.notice = ''
 
       Auth.login({
-        username:this.login.username,
-        password:this.login.password
-      }).then(res=>{
-        Bus.$emit('userInfo',{username:this.login.username})
+        username: this.login.username,
+        password: this.login.password
+      }).then(res => {
+        Bus.$emit('userInfo', {username: this.login.username})
         this.$router.push({path: 'notebooks'})
         this.$notify.success({
-          title:res.msg
+          title: res.msg
         });
-      }).catch(res=>{
+      }).catch(err => {
         this.login.isError = true;
-        this.login.notice = res.msg;
+        this.login.notice = err.msg;
       })
     }
   }
