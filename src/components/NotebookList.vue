@@ -22,7 +22,7 @@
               <span class="number">{{ notebook.noteCounts }}</span>
               <span class="action" @click.prevent="onEdit(notebook)">编辑</span>
               <span class="action" @click.prevent="onDelete(notebook)">删除</span>
-              <span class="date">{{ notebook.updatedAt }}</span>
+              <span class="date">{{ notebook.createdAtFriendly}}</span>
             </div>
           </router-link>
         </div>
@@ -51,7 +51,7 @@ export default {
     this.getNotebooks()
   },
   computed: {
-    ...mapGetters(['notebooks'])
+    ...mapGetters(['notebooks']),
   },
   methods: {
     ...mapActions(['deleteNotebook', 'updateNotebook', 'addNotebook', 'getNotebooks']),
