@@ -81,7 +81,7 @@ export default {
 // 收缩后侧边栏宽度
 .afterShrinkingSidebarWidth {
   width: 55px !important;
-  transition: width 1s;
+  transition: width 2s;
 
 }
 // 收缩后图标旋转
