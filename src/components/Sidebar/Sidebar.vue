@@ -94,7 +94,6 @@ export default {
   width: 180px;
   text-align: center;
   background-color: #222530;
-  transition: width 1s;
 
   .shrink {
     display: flex;
