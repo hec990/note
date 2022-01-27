@@ -49,8 +49,8 @@ export default {
         isError: false
       },
       login: {
-        username: '',
-        password: '',
+        username: 'xiaohe02',
+        password: 'xiaohe02',
         notice: "输入用户名和密码",
         isError: false
       }
