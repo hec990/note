@@ -36,27 +36,17 @@
 <script lang="js">
 import Auth from "@/apis/auth";
 import MarkdownIt from 'markdown-it'
+
 let md = new MarkdownIt()
+
+import Trash from "../apis/trash";
 
 export default {
   name: "TrashDetail",
   data() {
     return {
-      trashNotes: [
-        {
-          id: 6,
-          title: "我的笔记2",
-          content: "## hello",
-          createdAtFriendly: "1小时前",
-          updatedAtFriendly: "刚刚"
-        }, {
-          id: 3,
-          title: "我的笔记3",
-          content: "## hello",
-          createdAtFriendly: "1小时前",
-          updatedAtFriendly: "刚刚"
-        }
-      ],
+      // 回收站笔记列表
+      trashNotes: [],
       curTrashNote: {
         id: 3,
         title: "我的笔记3",
@@ -72,16 +62,19 @@ export default {
         this.$router.push({path: '/login'})
       }
     })
+        Trash.getAll().then(res => {
+          this.trashNotes = res.data;
+        })
   },
   methods: {
     onRevert() {
       console.log('恢复')
     },
     onDelete(notebook) {
-      console.log(notebook,'delete')
+      console.log(notebook, 'delete')
     }
   },
-  computed:{
+  computed: {
     compiledMarkdown() {
       return md.render(this.curTrashNote.content || "")
     }
