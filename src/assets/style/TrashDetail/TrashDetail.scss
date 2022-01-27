@@ -1,0 +1,120 @@
+// 边框颜色
+$borderColor: #ccc;
+
+#trash {
+  display: flex;
+  align-items: stretch;
+  background-color: #fff;
+  flex: 1;
+
+  .trash-sidebar {
+    position: relative;
+    width: 290px;
+    border-right: 1px solid $borderColor;
+    background-color: #eee;
+    min-height: 100%;
+
+    .notebook-title {
+      font-size: 18px;
+      font-weight: normal;
+      color: #333;
+      height: 45px;
+      line-height: 45px;
+      text-align: center;
+      border-bottom: 1px solid $borderColor;
+      background-color: #f7f7f7;
+      display: block;
+    }
+
+    .menu {
+      display: flex;
+
+      div {
+        font-size: 12px;
+        padding: 2px 10px;
+        flex: 1;
+        border-right: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    .notes {
+      li {
+        &:nth-child(odd) {
+          background-color: #f2f2f2;
+        }
+
+        a {
+          display: flex;
+          padding: 3px 0;
+          font-size: 12px;
+          border: 2px solid transparent;
+        }
+
+        .router-link-exact-active {
+          border: 2px solid #81c0f3;
+          border-radius: 3px;
+          height: 100%;
+        }
+
+        span {
+          padding: 0 10px;
+          flex: 1;
+        }
+      }
+    }
+  }
+  .trash-detail {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .trash-bar {
+      padding: 4px 20px;
+      border-bottom: 1px solid $borderColor;
+
+      span {
+        font-size: 12px;
+        color: #999;
+        margin-right: 4px;
+      }
+
+      .action {
+        float: right;
+        margin-left: 10px;
+        padding: 2px 4px;
+        font-size: 12px;
+        border: 1px solid $borderColor;
+        cursor: pointer;
+        color: #999;
+      }
+    }
+
+    .trash-title {
+      span {
+        display: inline-block;
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+    }
+
+    .editor {
+      height: calc(100% - 70px);
+      position: relative;
+    }
+
+    textarea, .preview {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
+  }
+}
